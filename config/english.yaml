@@ -1,0 +1,10 @@
+interuptions:
+  - Excuse me
+  - Pardon me
+  - Ahem
+declarations:
+  - name: front door
+      - Someone is at the front door.
+      - There is activity at the front door.
+  - name: driveway
+      - There is movement in the driveway.

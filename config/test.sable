@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE SABLE PUBLIC "-//SABLE//DTD SABLE speech mark up//EN" 
+	"Sable.v0_2.dtd"
+[]>
+<SABLE>
+
+<!-- A basic set of examples from SABLE -->
+
+<SPEAKER NAME="cmu_us_slt_arctic_clunits">
+
+Without style, <BREAK LEVEL="Large"/> Grace and I are in trouble.
+
+<DIV TYPE="paragraph">
+<DIV TYPE="sentence" >
+Yesterday, Denmark and India announced an agreement of cultural 
+exchange. </DIV> <DIV TYPE="sentence"> Further talks will take place 
+next month.
+</DIV>
+</DIV>
+
+The leaders of <EMPH>Denmark</EMPH> and <EMPH>India</EMPH> meet on
+Friday.
+ 
+An example is <ENGINE ID="festival" DATA="our own festival speech
+synthesizer"> the festival speech synthesizer</ENGINE> or
+the Bell Labs speech synthesizer.
+
+Without his penguin, <PITCH BASE="-20%"> which he left at home, </PITCH> he
+       could not enter the restaurant.
+
+I say <PRON SUB="toe maa toe">tomato</PRON> and you say 
+<PRON SUB="toe may toe">tomato</PRON>.
+
+The address is <RATE SPEED="-40%"> 10 Main Street </RATE>.
+
+As a test of marked-up numbers. Here we have 
+a year <SAYAS MODE="date">1998</SAYAS>, 
+an ordinal <SAYAS MODE="ordinal">1998</SAYAS>, 
+a cardinal <SAYAS MODE="cardinal">1998</SAYAS>, 
+a literal <SAYAS MODE="literal">1998</SAYAS>, 
+and phone number <SAYAS MODE="phone">1998</SAYAS>.
+
+
+Please speak more <VOLUME LEVEL="loud">loudly</VOLUME>, except
+when I ask you to speak <VOLUME LEVEL="quiet">in a quiet voice</VOLUME>.
+
+</SPEAKER>
+
+</SABLE>

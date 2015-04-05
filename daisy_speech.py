@@ -24,7 +24,7 @@ household members.
 '''
 
 import os, time, subprocess
-import daisy_config
+# import daisy_config
 
 def say(shellcall, txtfile):
     # debug
@@ -47,11 +47,13 @@ def repeatLastMsg():
 
 # Get first file in tosay/ folder
 def msgReader():
-    sayDir = os.getenv('HOME') + '/.daisy/tosay/'
-    saidDir = os.getenv('HOME') + '/.daisy/tosay/said/'
-    
+    # sayDir = os.getenv('HOME') + '/.daisy/tosay/'
+    # saidDir = os.getenv('HOME') + '/.daisy/tosay/said/'
+    sayDir = os.getcwd() + '/tosay/'
+    saidDir = os.getcwd() + '/tosay/said/' # change this to archived actions searchable by actionType field
+
     # get speech config from daisy_main.yaml
-    conf = daisy_config.getConf('main')
+    conf = daisy_config.getConf('main') # broken (needs to be a config class)
     
     for file in os.listdir(sayDir):
         if file.endswith('.txt'):

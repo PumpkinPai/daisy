@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE SABLE PUBLIC "-//SABLE//DTD SABLE speech mark up//EN" 
+	"Sable.v0_2.dtd"
+[]>
+<SABLE>
+
+<!-- A basic set of examples from SABLE -->
+
+<SPEAKER NAME="cmu_us_clb_arctic_clunits">
+
+<DIV TYPE='sentence'>
+Hello there.  My name is <EMPH>Daisy.</EMPH>
+Sometimes I like to talk <EMPH>slowly</EMPH> and very <EMPH>carefully.</EMPH>
+</DIV>
+
+</SPEAKER>
+
+</SABLE>

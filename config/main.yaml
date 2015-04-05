@@ -1,0 +1,11 @@
+  
+speech:
+  enabled: True
+  command: flite          # flite is wonderful
+  arg: ' -voice {v} -f '  # reads a text file
+  voice: slt              # selected voice
+  voices:                 # current voices available in flite
+    - kal 
+      awb 
+      slt 
+      rms

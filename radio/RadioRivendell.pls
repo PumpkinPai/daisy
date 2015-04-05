@@ -1,0 +1,21 @@
+[playlist]
+numberofentries=6
+File1=http://79.161.147.252:8001
+Title1=(#1 - 0/50) Radio Rivendell - The Fantasy Station
+Length1=-1
+File2=http://195.154.242.152:8003
+Title2=(#2 - 19/1000) Radio Rivendell - The Fantasy Station
+Length2=-1
+File3=http://188.40.92.248:80
+Title3=(#3 - 23/1024) Radio Rivendell - The Fantasy Station
+Length3=-1
+File4=http://5.39.94.34:8000
+Title4=(#4 - 38/250) Radio Rivendell - The Fantasy Station
+Length4=-1
+File5=http://212.83.176.161:8003
+Title5=(#5 - 16/100) Radio Rivendell - The Fantasy Station
+Length5=-1
+File6=http://62.65.107.19:8003
+Title6=(#6 - 13/50) Radio Rivendell - The Fantasy Station
+Length6=-1
+Version=2

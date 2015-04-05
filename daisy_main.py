@@ -6,17 +6,19 @@ import daisy_speech
 
 
 def getConf(whichConfig):
-    from os import getenv
+    # from os import getenv
+    import os
     import yaml
 
-    confFile = getenv('HOME') + '/.daisy/config/' + whichConfig +'.yaml'
+    # confFile = getenv('HOME') + '/.daisy/config/' + whichConfig +'.yaml'
+    confFile = os.getcwd() + '/config/' + whichConfig + '.yaml'
 
     with open(confFile, 'r') as f:
         conf = yaml.load(f)
         
     return conf
 
-def checkActions()
+def checkActions():
     pass
     # check actions folder for actions. Leave actions that are not due.
     action = '' 
