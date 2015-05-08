@@ -4,12 +4,10 @@
 
 
 import daisy_speech
-
+import os
+import yaml
 
 def getConf(whichConfig):
-    # from os import getenv
-    import os
-    import yaml
 
     # confFile = getenv('HOME') + '/.daisy/config/' + whichConfig +'.yaml'
     confFile = os.getcwd() + '/config/' + whichConfig + '.yaml'
@@ -19,6 +17,39 @@ def getConf(whichConfig):
         
     return conf
 
+# check ~/.daisy for config files and add missing entries from new features
+# found in ~/daisy/config files
+def initConf():
+    userDir = '~/.daisy/config/'
+    # daisyDir = '~/daisy/config/' # (these are the masters, loaded with defaults)
+    daisyDir = '~/git/daisy/config/' # temp
+    daisyFilenames = []
+    # todo- Get all config filenames from daisyDir
+
+    for i in daisyFilenames:
+        daisyFile = open(daisyDir + daisyFilenames[i], 'r')
+        daisySettings = yaml.load(daisyFile)
+        daisyFile.close
+
+        try:
+            # userFile found, merge with daisyFile
+            userFile = open(userDir + daisyFilenames[i], 'r')
+            userSettings = yaml.load(userFile)
+            userFile.close
+            # todo- merge
+        except Exception as e:
+            # Probably a new installation or new feature
+            try:
+                os.mkdir('~/.daisy')
+                os.mkdir('~/.daisy/config')
+            except: pass
+            newSettings = daisySettings
+
+        userFile = open(userDir + daisyFileNames[i], 'w')
+        userFile.write(yaml.dump(newSettings, default_flow_style=True))
+        userFile.close
+
+
 def checkActions():
     pass
     # check actions folder for actions. Leave actions that are not due.
@@ -27,6 +58,9 @@ def checkActions():
 
 
 if __name__ == "__main__":
+    # Check user configs against installation and add new entries
+    # (this also performs the first run installation of configs)
+    initConf()
 
     # Open config file and run that which is true
     conf = getConf('main')
