@@ -24,13 +24,26 @@ household members.
 '''
 
 import os, time, subprocess
-# import daisy_config
+import daisy_config
+# todo- overhaul this to remove redundancies from daisy_main.py ie- most of it
 
+def say(msg):
+    # get speech config from daisy_main.yaml
+    conf = daisy_config.getConf('main') # bug (needs to be a config class)
+    cmd = conf['speech']['command']
+    arg = conf['speech']['arg']
+    voice = conf['speech']['voice']
+    argument = arg.format(v=voice)
+    command = cmd + argument + ' ' + voice + ' "' +msg + '"'
+    print(command)
+    subprocess.call(command, shell=True)
+
+'''
 def say(shellcall, txtfile):
     # debug
     #print(shellcall, txtfile)
     subprocess.call(shellcall, shell=True)
-
+'''
 
 # Take a source text file's contents and append it to destination text file
 # Then delete source text file
@@ -46,47 +59,13 @@ def repeatLastMsg():
             
 
 # Get first file in tosay/ folder
-def msgReader():
+def msgReader(msg):
     # sayDir = os.getenv('HOME') + '/.daisy/tosay/'
     # saidDir = os.getenv('HOME') + '/.daisy/tosay/said/'
     sayDir = os.getcwd() + '/tosay/'
     saidDir = os.getcwd() + '/tosay/said/' # change this to archived actions searchable by actionType field
+    say(msg)
 
-    # get speech config from daisy_main.yaml
-    conf = daisy_config.getConf('main') # broken (needs to be a config class)
-    
-    for file in os.listdir(sayDir):
-        if file.endswith('.txt'):
-            # These are set here in case we want voice options in the text file
-            # This could enable dialogues given by Daisy
-            cmd = conf['speech']['command']
-            arg = conf['speech']['arg']
-            voice = conf['speech']['voice']
-            
-            '''msg = open(sayDir + file).read()
-            msg = msg.rstrip('\n')'''
-            txtfile = sayDir + file
-            # Debug
-            #print(file)
-            # Construct flite arguments
-            argmnt = arg.format(v=voice) + '"' + txtfile + '"'
-            shellcall = cmd + argmnt
-            say(shellcall, txtfile)
-            
-            # Move utterance to '/tosay/said/saidlog.txt' file
-            #archive(sayDir, file)
-            
-            #os.rename(sayDir + file, saidDir + file)
-            
-            
-            # Give a pause between utterances
-            time.sleep(1.0)
-    
-    # Give the system a break
-    time.sleep(2.0)
-    
-    #repeatLastMsg()
-        
 if __name__ == "__main__":
     msgReader()
         

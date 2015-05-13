@@ -2,10 +2,13 @@
 speech:
   enabled: True
   command: flite          # flite is wonderful
-  arg: ' -voice {v} -f '  # reads a text file
+  arg: ' -voice {v}'      # selects a voice
   voice: slt              # selected voice
   voices:                 # current voices available in flite
     - kal 
       awb 
       slt 
       rms
+waketime:
+    start: '6:30'
+    end: '24:00'

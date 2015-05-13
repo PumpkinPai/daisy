@@ -5,6 +5,8 @@
 
 import daisy_speech
 import os
+import time
+from datetime import datetime
 import yaml
 
 def getConf(whichConfig):
@@ -21,11 +23,12 @@ def getConf(whichConfig):
 # found in ~/daisy/config files
 def initConf():
     userDir = '~/.daisy/config/'
-    # daisyDir = '~/daisy/config/' # (these are the masters, loaded with defaults)
-    daisyDir = '~/git/daisy/config/' # temp
+    currentDir = os.getcwd()
+    daisyDir = currentDir + '/config/' # (these are the masters, loaded with defaults)
+    print(daisyDir)
     daisyFilenames = []
-    # todo- Get all config filenames from daisyDir
 
+    # todo- Get all config filenames from daisyDir
     for i in daisyFilenames:
         daisyFile = open(daisyDir + daisyFilenames[i], 'r')
         daisySettings = yaml.load(daisyFile)
@@ -50,11 +53,38 @@ def initConf():
         userFile.close
 
 
-def checkActions():
-    pass
+def checkActions(timeNow):
+    # timeNow is a dict with 'year', 'month', 'day', 'minutes' values
+    # timeNow['minutes'] is minutes since midnight
     # check actions folder for actions. Leave actions that are not due.
-    action = '' 
-    return action
+    taskDir = '/home/pumpkin/.daisy/tasks/'
+    actionFilenames = []
+
+    # get urgent actions regardless of time
+    for f in os.listdir(taskDir):
+        if f.endswith('.urgent'):
+            actionFilenames.append(f)
+    if actionFilenames != []:
+        actionFilenames.sort()
+        return taskDir + actionFilenames[0]
+
+    # look at normal tasks and check for due actions
+    for f in os.listdir(taskDir):
+        if f.endswith('.task'):
+            actionFilenames.append(f)
+    if actionFilenames != []:
+        actionFilenames.sort()
+        return taskDir + actionFilenames[0]
+
+    return False
+
+
+def performAction(actionFilename):
+    actionFile = open(actionFilename, 'r')
+    # todo- might as well use yaml files for tasks too
+    action = yaml.load(actionFile)
+    if action['action'] == 'say':
+        daisy_speech.say(action['contents'])
 
 
 if __name__ == "__main__":
@@ -64,13 +94,44 @@ if __name__ == "__main__":
 
     # Open config file and run that which is true
     conf = getConf('main')
-    
+
     if conf['speech']['enabled'] == True:
-        daisy_speech.msgReader()
-        print('should have said something...')
-    
+        #daisy_speech.msgReader()
+        print('talk talk...')
+
     # Debug
     print(conf['speech']['enabled'])
+
+    # wakeStart and wakeEnd are minutes since midnight
+    wakeStartStr = conf['waketime']['start'].split(':')
+    wakeEndStr = conf['waketime']['end'].split(':')
+    wakeStart = int(wakeStartStr[0]) * 60 + int(wakeStartStr[1])
+    wakeEnd = int(wakeEndStr[0]) * 60 + int(wakeEndStr[1])
+    print(str(wakeStart))
+
+    # Main loop
+    while True:
+        print('entering main loop')
+        action = []
+        awake = False
+        # timeNow is number of minutes since midnight
+        minNow = int(time.strftime("%H")) * 60 + int(time.strftime("%M"))
+        dateNow = [time.strftime("%Y"), time.strftime("%m"), time.strftime("%d")]
+        timeNow = {'minutes': minNow, 'year': int(time.strftime("%Y")), 'month': int(time.strftime("%m")), 'day': int(time.strftime("%d"))}
+        print(str(timeNow))
+        if timeNow['minutes'] > wakeStart and timeNow['minutes'] < wakeEnd:
+            awake = True
+        actionFilename = checkActions(timeNow)
+        if actionFilename:
+            if actionFilename.endswith('.urgent') or awake == True:
+                performAction(actionFilename)
+                print('actionFilename: ' + actionFilename)
+                # todo- logAction(actionFilename)
+        else:
+            pass
+
+
+        time.sleep(1)
 
     #daisy tasks are initiated on a repeating schedule
     #tasks are modular with each being its own .py file
