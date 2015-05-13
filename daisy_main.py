@@ -6,7 +6,6 @@
 import daisy_speech
 import os
 import time
-from datetime import datetime
 import yaml
 
 def getConf(whichConfig):
