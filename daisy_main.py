@@ -15,7 +15,7 @@ def getConf(whichConfig):
 
     with open(confFile, 'r') as f:
         conf = yaml.load(f)
-        
+
     return conf
 
 # check ~/.daisy for config files and add missing entries from new features
@@ -82,6 +82,7 @@ def performAction(actionFilename):
     actionFile = open(actionFilename, 'r')
     # todo- might as well use yaml files for tasks too
     action = yaml.load(actionFile)
+    actionFile.close()
     if action['action'] == 'say':
         daisy_speech.say(action['contents'])
 
