@@ -10,6 +10,7 @@ import yaml
 
 def getConf(whichConfig):
 
+    # todo (the whole conf files in the right place thing)
     # confFile = getenv('HOME') + '/.daisy/config/' + whichConfig +'.yaml'
     confFile = os.getcwd() + '/config/' + whichConfig + '.yaml'
 
@@ -44,7 +45,7 @@ def initConf():
             try:
                 os.mkdir('~/.daisy')
                 os.mkdir('~/.daisy/config')
-            except: pass
+            except: print(e)
             newSettings = daisySettings
 
         userFile = open(userDir + daisyFileNames[i], 'w')
@@ -56,7 +57,8 @@ def checkActions(timeNow):
     # timeNow is a dict with 'year', 'month', 'day', 'minutes' values
     # timeNow['minutes'] is minutes since midnight
     # check actions folder for actions. Leave actions that are not due.
-    taskDir = '/home/pumpkin/.daisy/tasks/'
+    # Todo- make taskDir not hardcoded for user pi
+    taskDir = '/home/pi/.daisy/tasks/'
     actionFilenames = []
 
     # get urgent actions regardless of time
@@ -102,6 +104,9 @@ if __name__ == "__main__":
     # Debug
     print(conf['speech']['enabled'])
 
+    # Start listening for other units
+    # Todo start server
+
     # wakeStart and wakeEnd are minutes since midnight
     wakeStartStr = conf['waketime']['start'].split(':')
     wakeEndStr = conf['waketime']['end'].split(':')
@@ -112,7 +117,10 @@ if __name__ == "__main__":
     # Main loop
     while True:
         print('entering main loop')
+        # Todo grab incoming server messages and file into tasks folder
+
         action = []
+        # awake is whether people are up and listening or not
         awake = False
         # timeNow is number of minutes since midnight
         minNow = int(time.strftime("%H")) * 60 + int(time.strftime("%M"))
